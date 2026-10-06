@@ -1,9 +1,9 @@
-# Employee Attendance, Shift and Leave Management System
+# EMPLOYEE ATTENDANCE, SHIFT, LEAVE MANAGEMENT SYSTEM
 
 - **Name:** Maydhaansh Nanda
 - **Roll Number:** 25WU0102155
-- **Project Title:** Design and Implementation of a Database Management System for Employee Attendance, Shift and Leave Management System
-- **Description:** A centralized relational database management system built with Next.js, Prisma ORM, and MySQL to streamline workforce tracking, shift scheduling, attendance recording, and leave administration.
+- **Project Title:** EMPLOYEE ATTENDANCE, SHIFT, LEAVE MANAGEMENT SYSTEM
+- **Description:** A centralized relational database management system built with Next.js, Prisma ORM, and MySQL for tracking employee attendance, managing shift schedules, and processing leave requests.
 
 ---
 
