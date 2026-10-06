@@ -35,14 +35,17 @@ The repository is structured to mirror the iterative milestones of the academic 
 ├── presentation2/                     # Review 2: Conceptual & Logical Design
 │   ├── README.md                      # Detailed ER & Normalization Documentation
 │   └── ER.png                         # High-Resolution Entity-Relationship Diagram
-└── presentation3/                     # Review 3: Implementation & Demonstration
-    ├── readme.md                      # Detailed Review 3 Documentation
-    └── source code/                   # Full-Stack Application Codebase
-        ├── prisma/                    # Prisma ORM Schema & Automated Seeders
-        ├── public/                    # Static Assets & Icons
-        ├── src/                       # Next.js Frontend & API Route Handlers
-        ├── package.json               # Dependencies & NPM Scripts
-        └── README.md                  # Developer & API Technical Reference
+├── presentation3/                     # Review 3: Implementation & Demonstration
+│   ├── readme.md                      # Detailed Review 3 Documentation
+│   └── source code/                   # Full-Stack Application Codebase
+│       ├── prisma/                    # Prisma ORM Schema & Automated Seeders
+│       ├── public/                    # Static Assets & Icons
+│       ├── src/                       # Next.js Frontend & API Route Handlers
+│       ├── package.json               # Dependencies & NPM Scripts
+│       └── README.md                  # Developer & API Technical Reference
+└── Project report/                    # Final Course Project Report
+    ├── Project_Report.pdf             # Final PDF Report Submission
+    └── Project_Report_Maydhaansh_Nanda.docx # Editable Word Document
 ```
 
 | Phase | Directory | Description & Artifacts |
@@ -50,6 +53,7 @@ The repository is structured to mirror the iterative milestones of the academic 
 | **Review 1** | [presentation1/](file:///Users/maydhaanshnanda/Projects/DBMS/presentation1) | Problem definition, organizational bottlenecks, stakeholder analysis, and system scope definition. |
 | **Review 2** | [presentation2/](file:///Users/maydhaanshnanda/Projects/DBMS/presentation2) | Entity-Relationship (ER) model, cardinality ratios, Relational Schema design, and Normalization analysis (1NF to 3NF). |
 | **Review 3** | [presentation3/](file:///Users/maydhaanshnanda/Projects/DBMS/presentation3) | Live Next.js web application, Prisma ORM integration, MySQL database schema, seed scripts, and RESTful API endpoints. |
+| **Final Report** | [Project report/](file:///Users/maydhaanshnanda/Projects/DBMS/Project%20report) | Official comprehensive project report PDF & editable DOCX deliverables. |
 
 ---
 
