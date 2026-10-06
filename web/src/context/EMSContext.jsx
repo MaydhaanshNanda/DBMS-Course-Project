@@ -1,6 +1,6 @@
 'use client';
 
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
 import {
   INITIAL_EMPLOYEES,
   INITIAL_SHIFTS,
@@ -14,7 +14,6 @@ import {
 const EMSContext = createContext(null);
 
 export const EMSProvider = ({ children }) => {
-  // Database Entity States (Synchronized with localStorage for persistence across reloads)
   const [employees, setEmployees] = useState(INITIAL_EMPLOYEES);
   const [shifts, setShifts] = useState(INITIAL_SHIFTS);
   const [employeeShifts, setEmployeeShifts] = useState(INITIAL_EMPLOYEE_SHIFTS);
@@ -22,105 +21,11 @@ export const EMSProvider = ({ children }) => {
   const [leaveRequests, setLeaveRequests] = useState(INITIAL_LEAVE);
   const [adminUsers, setAdminUsers] = useState(INITIAL_ADMIN_USERS);
   const [activityLogs, setActivityLogs] = useState(INITIAL_ACTIVITY_LOGS);
-  const [isLoaded, setIsLoaded] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   // UI Toast Notification State
   const [toasts, setToasts] = useState([]);
 
-  // Load persisted state from localStorage on client mount
-  useEffect(() => {
-    try {
-      const savedEmp = localStorage.getItem('ems_employees');
-      if (savedEmp) setEmployees(JSON.parse(savedEmp));
-
-      const savedShifts = localStorage.getItem('ems_shifts');
-      if (savedShifts) setShifts(JSON.parse(savedShifts));
-
-      const savedES = localStorage.getItem('ems_employee_shifts');
-      if (savedES) setEmployeeShifts(JSON.parse(savedES));
-
-      const savedAtt = localStorage.getItem('ems_attendance');
-      if (savedAtt) setAttendance(JSON.parse(savedAtt));
-
-      const savedLeave = localStorage.getItem('ems_leave');
-      if (savedLeave) setLeaveRequests(JSON.parse(savedLeave));
-
-      const savedAdmin = localStorage.getItem('ems_admin_users');
-      if (savedAdmin) setAdminUsers(JSON.parse(savedAdmin));
-
-      const savedLogs = localStorage.getItem('ems_activity_logs');
-      if (savedLogs) setActivityLogs(JSON.parse(savedLogs));
-    } catch (e) {
-      console.warn('Could not read from localStorage:', e);
-    }
-    setIsLoaded(true);
-  }, []);
-
-  // LocalStorage Sync (only after initial load to avoid overwriting)
-  useEffect(() => {
-    if (!isLoaded) return;
-    try {
-      localStorage.setItem('ems_employees', JSON.stringify(employees));
-    } catch (e) {
-      console.warn('Could not save employees to localStorage:', e);
-    }
-  }, [employees, isLoaded]);
-
-  useEffect(() => {
-    if (!isLoaded) return;
-    try {
-      localStorage.setItem('ems_shifts', JSON.stringify(shifts));
-    } catch (e) {
-      console.warn('Could not save shifts to localStorage:', e);
-    }
-  }, [shifts, isLoaded]);
-
-  useEffect(() => {
-    if (!isLoaded) return;
-    try {
-      localStorage.setItem('ems_employee_shifts', JSON.stringify(employeeShifts));
-    } catch (e) {
-      console.warn('Could not save employee shifts to localStorage:', e);
-    }
-  }, [employeeShifts, isLoaded]);
-
-  useEffect(() => {
-    if (!isLoaded) return;
-    try {
-      localStorage.setItem('ems_attendance', JSON.stringify(attendance));
-    } catch (e) {
-      console.warn('Could not save attendance to localStorage:', e);
-    }
-  }, [attendance, isLoaded]);
-
-  useEffect(() => {
-    if (!isLoaded) return;
-    try {
-      localStorage.setItem('ems_leave', JSON.stringify(leaveRequests));
-    } catch (e) {
-      console.warn('Could not save leave requests to localStorage:', e);
-    }
-  }, [leaveRequests, isLoaded]);
-
-  useEffect(() => {
-    if (!isLoaded) return;
-    try {
-      localStorage.setItem('ems_admin_users', JSON.stringify(adminUsers));
-    } catch (e) {
-      console.warn('Could not save admin users to localStorage:', e);
-    }
-  }, [adminUsers, isLoaded]);
-
-  useEffect(() => {
-    if (!isLoaded) return;
-    try {
-      localStorage.setItem('ems_activity_logs', JSON.stringify(activityLogs));
-    } catch (e) {
-      console.warn('Could not save activity logs to localStorage:', e);
-    }
-  }, [activityLogs, isLoaded]);
-
-  // Toast Handler
   const showToast = (message, type = 'success') => {
     const id = Date.now();
     setToasts((prev) => [...prev, { id, message, type }]);
@@ -133,87 +38,90 @@ export const EMSProvider = ({ children }) => {
     setToasts((prev) => prev.filter((t) => t.id !== id));
   };
 
-  // Activity Log Service
   const logActivity = (action, description) => {
     const newLog = {
       id: `ACT-${Date.now()}`,
       timestamp: new Date().toISOString().replace('T', ' ').substring(0, 16),
-      action,
-      description,
-      user: 'Admin User'
+      type: action,
+      description
     };
-    setActivityLogs((prev) => [newLog, ...prev]);
+    setActivityLogs((prev) => [newLog, ...prev.slice(0, 49)]);
   };
 
-  // ==========================================
-  // 1. EMPLOYEE ENTITY OPERATIONS (DBMS CRUD)
-  // ==========================================
-  
-  /**
-   * INSERT Record simulation -> Future Supabase: await supabase.from('EMPLOYEE').insert([newEmployee])
-   */
-  const addEmployee = (employeeData) => {
-    // Duplicate ID validation check
-    const existing = employees.find(
-      (e) => e.employee_id.toLowerCase() === employeeData.employee_id.trim().toLowerCase()
-    );
-    if (existing) {
-      throw new Error(`Employee ID "${employeeData.employee_id}" already exists in the database.`);
+  // Fetch all live data from MySQL via Prisma API
+  const refreshData = useCallback(async () => {
+    try {
+      const [empRes, shiftRes, attRes, leaveRes, adminRes] = await Promise.all([
+        fetch('/api/employees').then((r) => (r.ok ? r.json() : null)),
+        fetch('/api/shifts').then((r) => (r.ok ? r.json() : null)),
+        fetch('/api/attendance').then((r) => (r.ok ? r.json() : null)),
+        fetch('/api/leave').then((r) => (r.ok ? r.json() : null)),
+        fetch('/api/admin').then((r) => (r.ok ? r.json() : null))
+      ]);
+
+      if (empRes && empRes.length > 0) setEmployees(empRes);
+      if (shiftRes) {
+        if (shiftRes.shifts && shiftRes.shifts.length > 0) setShifts(shiftRes.shifts);
+        if (shiftRes.employeeShifts) setEmployeeShifts(shiftRes.employeeShifts);
+      }
+      if (attRes && attRes.length > 0) setAttendance(attRes);
+      if (leaveRes && leaveRes.length > 0) setLeaveRequests(leaveRes);
+      if (adminRes && adminRes.length > 0) setAdminUsers(adminRes);
+    } catch (err) {
+      console.warn('Live API fetch error, fallback to local state:', err);
+    } finally {
+      setIsLoading(false);
     }
+  }, []);
 
-    const newEmployee = {
-      ...employeeData,
-      employee_id: employeeData.employee_id.toUpperCase().trim(),
-      name: `${employeeData.first_name.trim()} ${employeeData.last_name.trim()}`,
-      status: employeeData.status || 'Active',
-      salary: Number(employeeData.salary) || 75000
-    };
+  useEffect(() => {
+    refreshData();
+  }, [refreshData]);
 
-    setEmployees((prev) => [newEmployee, ...prev]);
-    
-    // Automatically assign default shift (Standard Day Shift)
-    const newShiftAssign = {
-      assignment_id: `ES-${Date.now().toString().slice(-4)}`,
-      employee_id: newEmployee.employee_id,
-      shift_id: 'SH-02',
-      effective_date: newEmployee.join_date,
-      status: 'Assigned'
-    };
-    setEmployeeShifts((prev) => [...prev, newShiftAssign]);
+  // ==========================================
+  // 1. EMPLOYEE ENTITY OPERATIONS (MySQL)
+  // ==========================================
+  const addEmployee = async (employeeData) => {
+    try {
+      const res = await fetch('/api/employees', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(employeeData)
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || 'Failed to add employee');
 
-    // Automatically create today's default attendance record
-    const todayStr = new Date().toISOString().split('T')[0];
-    const newAtt = {
-      attendance_id: `ATT-${Date.now().toString().slice(-4)}`,
-      employee_id: newEmployee.employee_id,
-      date: todayStr,
-      check_in: '09:00 AM',
-      check_out: '05:30 PM',
-      status: 'Present',
-      notes: 'New Employee Initial Check-in'
-    };
-    setAttendance((prev) => [newAtt, ...prev]);
-
-    logActivity('INSERT', `Inserted new employee record: ${newEmployee.name} (${newEmployee.employee_id})`);
-    showToast(`Employee "${newEmployee.name}" successfully added to system database.`);
-    return newEmployee;
+      setEmployees((prev) => [data, ...prev]);
+      logActivity('INSERT', `Inserted new employee: ${data.name} (${data.employee_id}) into MySQL EMPLOYEE table.`);
+      showToast(`Employee "${data.name}" successfully inserted into MySQL.`);
+      return data;
+    } catch (err) {
+      showToast(err.message, 'danger');
+      throw err;
+    }
   };
 
-  /**
-   * DELETE Record simulation -> Future Supabase: await supabase.from('EMPLOYEE').delete().eq('employee_id', id)
-   */
-  const deleteEmployee = (employee_id) => {
-    const target = employees.find((e) => e.employee_id === employee_id);
-    if (!target) return false;
+  const deleteEmployee = async (employee_id) => {
+    try {
+      const target = employees.find((e) => e.employee_id === employee_id);
+      const res = await fetch(`/api/employees?id=${encodeURIComponent(employee_id)}`, {
+        method: 'DELETE'
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || 'Failed to delete employee');
 
-    setEmployees((prev) => prev.filter((e) => e.employee_id !== employee_id));
-    setAttendance((prev) => prev.filter((a) => a.employee_id !== employee_id));
-    setEmployeeShifts((prev) => prev.filter((es) => es.employee_id !== employee_id));
-    setLeaveRequests((prev) => prev.filter((l) => l.employee_id !== employee_id));
+      setEmployees((prev) => prev.filter((e) => e.employee_id !== employee_id));
+      setAttendance((prev) => prev.filter((a) => a.employee_id !== employee_id));
+      setEmployeeShifts((prev) => prev.filter((es) => es.employee_id !== employee_id));
+      setLeaveRequests((prev) => prev.filter((l) => l.employee_id !== employee_id));
 
-    logActivity('DELETE', `Deleted employee record: ${target.name} (${target.employee_id})`);
-    showToast(`Employee "${target.name}" (${employee_id}) was deleted from system.`, 'danger');
-    return true;
+      logActivity('DELETE', `Deleted employee: ${target?.name || employee_id} from MySQL EMPLOYEE table.`);
+      showToast(`Employee record deleted from MySQL.`, 'danger');
+      return true;
+    } catch (err) {
+      showToast(err.message, 'danger');
+      return false;
+    }
   };
 
   const getEmployeeById = (employee_id) => {
@@ -221,115 +129,161 @@ export const EMSProvider = ({ children }) => {
   };
 
   // ==========================================
-  // 2. ATTENDANCE ENTITY OPERATIONS
+  // 2. ATTENDANCE ENTITY OPERATIONS (MySQL)
   // ==========================================
-  const addAttendanceRecord = (attData) => {
-    const newAtt = {
-      attendance_id: `ATT-${Date.now().toString().slice(-4)}`,
-      ...attData
-    };
-    setAttendance((prev) => [newAtt, ...prev]);
-    logActivity('INSERT', `Marked attendance for Employee ${attData.employee_id} as ${attData.status}`);
-    showToast(`Attendance marked for ${attData.employee_id}`);
-    return newAtt;
-  };
+  const addAttendanceRecord = async (attData) => {
+    try {
+      const res = await fetch('/api/attendance', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(attData)
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || 'Failed to record attendance');
 
-  // ==========================================
-  // 3. SHIFT & EMPLOYEE_SHIFT OPERATIONS
-  // ==========================================
-  const assignEmployeeShift = (employee_id, shift_id) => {
-    setEmployeeShifts((prev) => {
-      const filtered = prev.filter((es) => es.employee_id !== employee_id);
-      const newAssign = {
-        assignment_id: `ES-${Date.now().toString().slice(-4)}`,
-        employee_id,
-        shift_id,
-        effective_date: new Date().toISOString().split('T')[0],
-        status: 'Assigned'
-      };
-      return [...filtered, newAssign];
-    });
+      setAttendance((prev) => {
+        const filtered = prev.filter((a) => !(a.employee_id === data.employee_id && a.date === data.date));
+        return [data, ...filtered];
+      });
 
-    const emp = getEmployeeById(employee_id);
-    const shift = shifts.find((s) => s.shift_id === shift_id);
-    logActivity('UPDATE', `Assigned ${emp?.name || employee_id} to ${shift?.shift_name || shift_id}`);
-    showToast(`Shift updated for ${emp?.name || employee_id}`);
-  };
-
-  // ==========================================
-  // 4. LEAVE ENTITY OPERATIONS
-  // ==========================================
-  const requestLeave = (leaveData) => {
-    const newLeave = {
-      leave_id: `LV-${Date.now().toString().slice(-4)}`,
-      status: 'Pending',
-      applied_on: new Date().toISOString().split('T')[0],
-      ...leaveData
-    };
-    setLeaveRequests((prev) => [newLeave, ...prev]);
-    const emp = getEmployeeById(leaveData.employee_id);
-    logActivity('INSERT', `Submitted leave request LV-${newLeave.leave_id} for ${emp?.name || leaveData.employee_id}`);
-    showToast('Leave request submitted successfully.');
-    return newLeave;
-  };
-
-  const updateLeaveStatus = (leave_id, status) => {
-    setLeaveRequests((prev) =>
-      prev.map((l) => {
-        if (l.leave_id === leave_id) {
-          // If approved and leave is today, update employee status to "On Leave"
-          if (status === 'Approved') {
-            const emp = employees.find((e) => e.employee_id === l.employee_id);
-            if (emp) {
-              setEmployees((empList) =>
-                empList.map((e) => (e.employee_id === l.employee_id ? { ...e, status: 'On Leave' } : e))
-              );
-            }
-          }
-          return { ...l, status };
-        }
-        return l;
-      })
-    );
-    logActivity('UPDATE', `Updated Leave Request ${leave_id} status to ${status}`);
-    showToast(`Leave request ${leave_id} set to ${status}.`, status === 'Approved' ? 'success' : 'info');
-  };
-
-  // ==========================================
-  // 5. USER_ADMIN OPERATIONS
-  // ==========================================
-  const addAdminUser = (userData) => {
-    const newUser = {
-      user_id: `USR-${(adminUsers.length + 1).toString().padStart(2, '0')}`,
-      status: 'Active',
-      last_login: 'Never',
-      ...userData
-    };
-    setAdminUsers((prev) => [newUser, ...prev]);
-    logActivity('INSERT', `Added new admin user: ${newUser.username} (${newUser.role})`);
-    showToast(`Admin user "${newUser.username}" created.`);
-    return newUser;
-  };
-
-  // Reset Mock Data to Factory Default (Convenient for DBMS Demos!)
-  const resetToMockDefaults = () => {
-    setEmployees(INITIAL_EMPLOYEES);
-    setShifts(INITIAL_SHIFTS);
-    setEmployeeShifts(INITIAL_EMPLOYEE_SHIFTS);
-    setAttendance(INITIAL_ATTENDANCE);
-    setLeaveRequests(INITIAL_LEAVE);
-    setAdminUsers(INITIAL_ADMIN_USERS);
-    setActivityLogs(INITIAL_ACTIVITY_LOGS);
-    if (typeof window !== 'undefined') {
-      localStorage.clear();
+      logActivity('INSERT', `Marked attendance for Employee ${data.employee_id} as ${data.status} in MySQL.`);
+      showToast(`Attendance marked for ${data.employee_id}`);
+      return data;
+    } catch (err) {
+      showToast(err.message, 'danger');
+      throw err;
     }
-    showToast('Mock database reset to factory initial state.');
   };
 
-  // Dynamic KPI Stats derived from mock database state
+  // ==========================================
+  // 3. SHIFT & EMPLOYEE_SHIFT OPERATIONS (MySQL)
+  // ==========================================
+  const assignEmployeeShift = async (employee_id, shift_id) => {
+    try {
+      const res = await fetch('/api/shifts/assign', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ employee_id, shift_id })
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || 'Failed to assign shift');
+
+      setEmployeeShifts((prev) => {
+        const filtered = prev.filter((es) => es.employee_id !== employee_id);
+        return [...filtered, data];
+      });
+
+      const emp = getEmployeeById(employee_id);
+      const shift = shifts.find((s) => s.shift_id === shift_id);
+      logActivity('UPDATE', `Assigned ${emp?.name || employee_id} to ${shift?.shift_name || shift_id} in MySQL.`);
+      showToast(`Shift updated for ${emp?.name || employee_id}`);
+    } catch (err) {
+      showToast(err.message, 'danger');
+    }
+  };
+
+  // ==========================================
+  // 4. LEAVE ENTITY OPERATIONS (MySQL)
+  // ==========================================
+  const requestLeave = async (leaveData) => {
+    try {
+      const res = await fetch('/api/leave', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(leaveData)
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || 'Failed to submit leave');
+
+      setLeaveRequests((prev) => [data, ...prev]);
+      const emp = getEmployeeById(leaveData.employee_id);
+      logActivity('INSERT', `Submitted leave request ${data.leave_id} for ${emp?.name || leaveData.employee_id} in MySQL.`);
+      showToast('Leave request submitted and saved to MySQL.');
+      return data;
+    } catch (err) {
+      showToast(err.message, 'danger');
+      throw err;
+    }
+  };
+
+  const updateLeaveStatus = async (leave_id, status) => {
+    try {
+      const res = await fetch('/api/leave', {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ leave_id, status })
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || 'Failed to update leave');
+
+      setLeaveRequests((prev) =>
+        prev.map((l) => (l.leave_id === leave_id ? { ...l, status } : l))
+      );
+
+      logActivity('UPDATE', `Updated Leave Request ${leave_id} status to ${status} in MySQL.`);
+      showToast(`Leave request ${leave_id} set to ${status}.`, status === 'Approved' ? 'success' : 'info');
+    } catch (err) {
+      showToast(err.message, 'danger');
+    }
+  };
+
+  // ==========================================
+  // 5. USER_ADMIN OPERATIONS (MySQL)
+  // ==========================================
+  const addAdminUser = async (userData) => {
+    try {
+      const res = await fetch('/api/admin', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(userData)
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || 'Failed to add admin user');
+
+      setAdminUsers((prev) => [data, ...prev]);
+      logActivity('INSERT', `Added new admin user: ${data.username} in MySQL.`);
+      showToast(`Admin user "${data.username}" created in MySQL.`);
+      return data;
+    } catch (err) {
+      showToast(err.message, 'danger');
+      throw err;
+    }
+  };
+
+  const deleteAdminUser = async (user_id) => {
+    try {
+      const res = await fetch(`/api/admin?id=${encodeURIComponent(user_id)}`, {
+        method: 'DELETE'
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || 'Failed to delete user');
+
+      setAdminUsers((prev) => prev.filter((u) => u.user_id !== user_id));
+      showToast('User removed from MySQL.', 'danger');
+    } catch (err) {
+      showToast(err.message, 'danger');
+    }
+  };
+
+  // Reset Data to Seed Defaults
+  const resetToMockDefaults = async () => {
+    try {
+      const res = await fetch('/api/reset', { method: 'POST' });
+      if (res.ok) {
+        await refreshData();
+        showToast('MySQL database re-seeded to initial state.');
+      } else {
+        showToast('Error resetting database', 'danger');
+      }
+    } catch (err) {
+      showToast(err.message, 'danger');
+    }
+  };
+
+  // Dynamic KPI Stats derived from database state
   const kpiStats = {
     totalEmployees: employees.length,
-    presentToday: attendance.filter((a) => a.date === new Date().toISOString().split('T')[0] && (a.status === 'Present' || a.status === 'Late')).length || 10,
+    presentToday: attendance.filter((a) => a.status === 'Present' || a.status === 'Late').length || 10,
     onLeave: employees.filter((e) => e.status === 'On Leave').length,
     activeShifts: shifts.length,
     pendingLeaves: leaveRequests.filter((l) => l.status === 'Pending').length
@@ -347,6 +301,8 @@ export const EMSProvider = ({ children }) => {
         activityLogs,
         toasts,
         kpiStats,
+        isLoading,
+        refreshData,
         addEmployee,
         deleteEmployee,
         getEmployeeById,
@@ -355,6 +311,7 @@ export const EMSProvider = ({ children }) => {
         requestLeave,
         updateLeaveStatus,
         addAdminUser,
+        deleteAdminUser,
         resetToMockDefaults,
         showToast,
         removeToast

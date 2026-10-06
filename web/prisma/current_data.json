@@ -1,0 +1,569 @@
+{
+  "emp": [
+    {
+      "Employee_ID": 101,
+      "Name": "Rahul Sharma",
+      "Email": "rahul@gmail.com",
+      "Phone": "9876543210",
+      "Department": "IT",
+      "Designation": "Software Engineer"
+    },
+    {
+      "Employee_ID": 102,
+      "Name": "Priya Mehta",
+      "Email": "priya@gmail.com",
+      "Phone": "9876543211",
+      "Department": "HR",
+      "Designation": "HR Executive"
+    },
+    {
+      "Employee_ID": 103,
+      "Name": "Arjun Kumar",
+      "Email": "arjun@gmail.com",
+      "Phone": "9876543212",
+      "Department": "Finance",
+      "Designation": "Accountant"
+    },
+    {
+      "Employee_ID": 104,
+      "Name": "Sneha Reddy",
+      "Email": "sneha@gmail.com",
+      "Phone": "9876543213",
+      "Department": "IT",
+      "Designation": "Data Analyst"
+    },
+    {
+      "Employee_ID": 105,
+      "Name": "Vikram Singh",
+      "Email": "vikram@gmail.com",
+      "Phone": "9876543214",
+      "Department": "Marketing",
+      "Designation": "Marketing Executive"
+    },
+    {
+      "Employee_ID": 106,
+      "Name": "Ananya Rao",
+      "Email": "ananya@gmail.com",
+      "Phone": "9876543215",
+      "Department": "Finance",
+      "Designation": "Financial Analyst"
+    },
+    {
+      "Employee_ID": 107,
+      "Name": "Karan Patel",
+      "Email": "karan@gmail.com",
+      "Phone": "9876543216",
+      "Department": "HR",
+      "Designation": "HR Manager"
+    },
+    {
+      "Employee_ID": 108,
+      "Name": "Neha Kapoor",
+      "Email": "neha@gmail.com",
+      "Phone": "9876543217",
+      "Department": "IT",
+      "Designation": "System Administrator"
+    },
+    {
+      "Employee_ID": 109,
+      "Name": "Rohan Verma",
+      "Email": "rohan@gmail.com",
+      "Phone": "9876543218",
+      "Department": "Operations",
+      "Designation": "Operations Manager"
+    },
+    {
+      "Employee_ID": 110,
+      "Name": "Aarav Menon",
+      "Email": "aarav@gmail.com",
+      "Phone": "9876543219",
+      "Department": "IT",
+      "Designation": "Software Developer"
+    },
+    {
+      "Employee_ID": 111,
+      "Name": "Ishita Das",
+      "Email": "ishita@gmail.com",
+      "Phone": "9876543220",
+      "Department": "HR",
+      "Designation": "Recruitment Specialist"
+    },
+    {
+      "Employee_ID": 112,
+      "Name": "Aditya Nair",
+      "Email": "aditya@gmail.com",
+      "Phone": "9876543221",
+      "Department": "Finance",
+      "Designation": "Finance Executive"
+    },
+    {
+      "Employee_ID": 113,
+      "Name": "Meera Iyer",
+      "Email": "meera@gmail.com",
+      "Phone": "9876543222",
+      "Department": "Marketing",
+      "Designation": "Marketing Manager"
+    },
+    {
+      "Employee_ID": 114,
+      "Name": "Yash Gupta",
+      "Email": "yash@gmail.com",
+      "Phone": "9876543223",
+      "Department": "Operations",
+      "Designation": "Operations Executive"
+    }
+  ],
+  "shifts": [
+    {
+      "Shift_ID": 1,
+      "Shift_Name": "Morning",
+      "Start_Time": "1970-01-01T09:00:00.000Z",
+      "End_Time": "1970-01-01T17:00:00.000Z"
+    },
+    {
+      "Shift_ID": 2,
+      "Shift_Name": "Evening",
+      "Start_Time": "1970-01-01T14:00:00.000Z",
+      "End_Time": "1970-01-01T22:00:00.000Z"
+    },
+    {
+      "Shift_ID": 3,
+      "Shift_Name": "Night",
+      "Start_Time": "1970-01-01T22:00:00.000Z",
+      "End_Time": "1970-01-01T06:00:00.000Z"
+    },
+    {
+      "Shift_ID": 4,
+      "Shift_Name": "Morning Extended",
+      "Start_Time": "1970-01-01T08:00:00.000Z",
+      "End_Time": "1970-01-01T16:00:00.000Z"
+    },
+    {
+      "Shift_ID": 5,
+      "Shift_Name": "General",
+      "Start_Time": "1970-01-01T10:00:00.000Z",
+      "End_Time": "1970-01-01T18:00:00.000Z"
+    },
+    {
+      "Shift_ID": 6,
+      "Shift_Name": "Afternoon",
+      "Start_Time": "1970-01-01T12:00:00.000Z",
+      "End_Time": "1970-01-01T20:00:00.000Z"
+    },
+    {
+      "Shift_ID": 7,
+      "Shift_Name": "Evening Extended",
+      "Start_Time": "1970-01-01T15:00:00.000Z",
+      "End_Time": "1970-01-01T23:00:00.000Z"
+    },
+    {
+      "Shift_ID": 8,
+      "Shift_Name": "Night Extended",
+      "Start_Time": "1970-01-01T20:00:00.000Z",
+      "End_Time": "1970-01-01T04:00:00.000Z"
+    },
+    {
+      "Shift_ID": 9,
+      "Shift_Name": "Flexible",
+      "Start_Time": "1970-01-01T11:00:00.000Z",
+      "End_Time": "1970-01-01T19:00:00.000Z"
+    },
+    {
+      "Shift_ID": 10,
+      "Shift_Name": "Early Morning",
+      "Start_Time": "1970-01-01T06:00:00.000Z",
+      "End_Time": "1970-01-01T14:00:00.000Z"
+    },
+    {
+      "Shift_ID": 11,
+      "Shift_Name": "Standard",
+      "Start_Time": "1970-01-01T09:30:00.000Z",
+      "End_Time": "1970-01-01T17:30:00.000Z"
+    },
+    {
+      "Shift_ID": 12,
+      "Shift_Name": "Mid Day",
+      "Start_Time": "1970-01-01T11:00:00.000Z",
+      "End_Time": "1970-01-01T19:00:00.000Z"
+    },
+    {
+      "Shift_ID": 13,
+      "Shift_Name": "Late Evening",
+      "Start_Time": "1970-01-01T16:00:00.000Z",
+      "End_Time": "1970-01-01T00:00:00.000Z"
+    },
+    {
+      "Shift_ID": 14,
+      "Shift_Name": "Overnight",
+      "Start_Time": "1970-01-01T21:00:00.000Z",
+      "End_Time": "1970-01-01T05:00:00.000Z"
+    }
+  ],
+  "att": [
+    {
+      "Attendance_ID": 1001,
+      "Employee_ID": 101,
+      "Date": "2026-09-01T00:00:00.000Z",
+      "Check_In": "1970-01-01T09:02:00.000Z",
+      "Check_Out": "1970-01-01T17:05:00.000Z",
+      "Status": "Present"
+    },
+    {
+      "Attendance_ID": 1002,
+      "Employee_ID": 102,
+      "Date": "2026-09-01T00:00:00.000Z",
+      "Check_In": "1970-01-01T09:15:00.000Z",
+      "Check_Out": "1970-01-01T17:00:00.000Z",
+      "Status": "Late"
+    },
+    {
+      "Attendance_ID": 1003,
+      "Employee_ID": 103,
+      "Date": "2026-09-01T00:00:00.000Z",
+      "Check_In": "1970-01-01T09:00:00.000Z",
+      "Check_Out": "1970-01-01T17:02:00.000Z",
+      "Status": "Present"
+    },
+    {
+      "Attendance_ID": 1004,
+      "Employee_ID": 104,
+      "Date": "2026-09-01T00:00:00.000Z",
+      "Check_In": "1970-01-01T08:03:00.000Z",
+      "Check_Out": "1970-01-01T16:02:00.000Z",
+      "Status": "Present"
+    },
+    {
+      "Attendance_ID": 1005,
+      "Employee_ID": 105,
+      "Date": "2026-09-01T00:00:00.000Z",
+      "Check_In": "1970-01-01T10:12:00.000Z",
+      "Check_Out": "1970-01-01T18:05:00.000Z",
+      "Status": "Late"
+    },
+    {
+      "Attendance_ID": 1006,
+      "Employee_ID": 106,
+      "Date": "2026-09-01T00:00:00.000Z",
+      "Check_In": "1970-01-01T12:00:00.000Z",
+      "Check_Out": "1970-01-01T20:01:00.000Z",
+      "Status": "Present"
+    },
+    {
+      "Attendance_ID": 1007,
+      "Employee_ID": 107,
+      "Date": "2026-09-01T00:00:00.000Z",
+      "Check_In": "1970-01-01T15:00:00.000Z",
+      "Check_Out": "1970-01-01T23:02:00.000Z",
+      "Status": "Present"
+    },
+    {
+      "Attendance_ID": 1008,
+      "Employee_ID": 108,
+      "Date": "2026-09-01T00:00:00.000Z",
+      "Check_In": "1970-01-01T20:10:00.000Z",
+      "Check_Out": "1970-01-01T04:05:00.000Z",
+      "Status": "Late"
+    },
+    {
+      "Attendance_ID": 1009,
+      "Employee_ID": 109,
+      "Date": "2026-09-01T00:00:00.000Z",
+      "Check_In": "1970-01-01T11:02:00.000Z",
+      "Check_Out": "1970-01-01T19:00:00.000Z",
+      "Status": "Present"
+    },
+    {
+      "Attendance_ID": 1010,
+      "Employee_ID": 110,
+      "Date": "2026-09-02T00:00:00.000Z",
+      "Check_In": "1970-01-01T06:02:00.000Z",
+      "Check_Out": "1970-01-01T14:01:00.000Z",
+      "Status": "Present"
+    },
+    {
+      "Attendance_ID": 1011,
+      "Employee_ID": 111,
+      "Date": "2026-09-02T00:00:00.000Z",
+      "Check_In": "1970-01-01T09:42:00.000Z",
+      "Check_Out": "1970-01-01T17:30:00.000Z",
+      "Status": "Late"
+    },
+    {
+      "Attendance_ID": 1012,
+      "Employee_ID": 112,
+      "Date": "2026-09-02T00:00:00.000Z",
+      "Check_In": "1970-01-01T11:00:00.000Z",
+      "Check_Out": "1970-01-01T19:03:00.000Z",
+      "Status": "Present"
+    },
+    {
+      "Attendance_ID": 1013,
+      "Employee_ID": 113,
+      "Date": "2026-09-02T00:00:00.000Z",
+      "Check_In": "1970-01-01T16:05:00.000Z",
+      "Check_Out": "1970-01-01T00:02:00.000Z",
+      "Status": "Late"
+    },
+    {
+      "Attendance_ID": 1014,
+      "Employee_ID": 114,
+      "Date": "2026-09-02T00:00:00.000Z",
+      "Check_In": "1970-01-01T21:00:00.000Z",
+      "Check_Out": "1970-01-01T05:01:00.000Z",
+      "Status": "Present"
+    }
+  ],
+  "leaves": [
+    {
+      "Leave_ID": 2001,
+      "Employee_ID": 101,
+      "Leave_Type": "Sick Leave",
+      "Start_Date": "2026-09-05T00:00:00.000Z",
+      "End_Date": "2026-09-05T00:00:00.000Z",
+      "Reason": "Fever",
+      "Status": "Approved"
+    },
+    {
+      "Leave_ID": 2002,
+      "Employee_ID": 102,
+      "Leave_Type": "Casual Leave",
+      "Start_Date": "2026-09-07T00:00:00.000Z",
+      "End_Date": "2026-09-08T00:00:00.000Z",
+      "Reason": "Personal work",
+      "Status": "Approved"
+    },
+    {
+      "Leave_ID": 2003,
+      "Employee_ID": 103,
+      "Leave_Type": "Sick Leave",
+      "Start_Date": "2026-09-10T00:00:00.000Z",
+      "End_Date": "2026-09-10T00:00:00.000Z",
+      "Reason": "Medical appointment",
+      "Status": "Pending"
+    },
+    {
+      "Leave_ID": 2004,
+      "Employee_ID": 104,
+      "Leave_Type": "Casual Leave",
+      "Start_Date": "2026-09-12T00:00:00.000Z",
+      "End_Date": "2026-09-13T00:00:00.000Z",
+      "Reason": "Family function",
+      "Status": "Approved"
+    },
+    {
+      "Leave_ID": 2005,
+      "Employee_ID": 105,
+      "Leave_Type": "Emergency Leave",
+      "Start_Date": "2026-09-15T00:00:00.000Z",
+      "End_Date": "2026-09-15T00:00:00.000Z",
+      "Reason": "Urgent personal matter",
+      "Status": "Pending"
+    },
+    {
+      "Leave_ID": 2006,
+      "Employee_ID": 106,
+      "Leave_Type": "Casual Leave",
+      "Start_Date": "2026-09-18T00:00:00.000Z",
+      "End_Date": "2026-09-19T00:00:00.000Z",
+      "Reason": "Personal work",
+      "Status": "Rejected"
+    },
+    {
+      "Leave_ID": 2007,
+      "Employee_ID": 107,
+      "Leave_Type": "Sick Leave",
+      "Start_Date": "2026-09-03T00:00:00.000Z",
+      "End_Date": "2026-09-03T00:00:00.000Z",
+      "Reason": "Cold and fever",
+      "Status": "Approved"
+    },
+    {
+      "Leave_ID": 2008,
+      "Employee_ID": 108,
+      "Leave_Type": "Casual Leave",
+      "Start_Date": "2026-09-06T00:00:00.000Z",
+      "End_Date": "2026-09-07T00:00:00.000Z",
+      "Reason": "Family function",
+      "Status": "Pending"
+    },
+    {
+      "Leave_ID": 2009,
+      "Employee_ID": 109,
+      "Leave_Type": "Emergency Leave",
+      "Start_Date": "2026-09-09T00:00:00.000Z",
+      "End_Date": "2026-09-09T00:00:00.000Z",
+      "Reason": "Urgent personal work",
+      "Status": "Approved"
+    },
+    {
+      "Leave_ID": 2010,
+      "Employee_ID": 110,
+      "Leave_Type": "Casual Leave",
+      "Start_Date": "2026-09-14T00:00:00.000Z",
+      "End_Date": "2026-09-15T00:00:00.000Z",
+      "Reason": "Travel",
+      "Status": "Approved"
+    },
+    {
+      "Leave_ID": 2011,
+      "Employee_ID": 111,
+      "Leave_Type": "Sick Leave",
+      "Start_Date": "2026-09-20T00:00:00.000Z",
+      "End_Date": "2026-09-20T00:00:00.000Z",
+      "Reason": "Medical checkup",
+      "Status": "Pending"
+    }
+  ],
+  "admins": [
+    {
+      "User_ID": 1,
+      "Employee_ID": 101,
+      "Username": "rahul",
+      "Role": "Employee"
+    },
+    {
+      "User_ID": 2,
+      "Employee_ID": 102,
+      "Username": "priya",
+      "Role": "Admin"
+    },
+    {
+      "User_ID": 3,
+      "Employee_ID": 103,
+      "Username": "arjun",
+      "Role": "Employee"
+    },
+    {
+      "User_ID": 4,
+      "Employee_ID": 104,
+      "Username": "sneha",
+      "Role": "Employee"
+    },
+    {
+      "User_ID": 5,
+      "Employee_ID": 105,
+      "Username": "vikram",
+      "Role": "Employee"
+    },
+    {
+      "User_ID": 6,
+      "Employee_ID": 106,
+      "Username": "ananya",
+      "Role": "Employee"
+    },
+    {
+      "User_ID": 7,
+      "Employee_ID": 107,
+      "Username": "karan",
+      "Role": "Admin"
+    },
+    {
+      "User_ID": 8,
+      "Employee_ID": 108,
+      "Username": "neha",
+      "Role": "Employee"
+    },
+    {
+      "User_ID": 9,
+      "Employee_ID": 109,
+      "Username": "rohan",
+      "Role": "Employee"
+    },
+    {
+      "User_ID": 10,
+      "Employee_ID": 110,
+      "Username": "aarav",
+      "Role": "Employee"
+    },
+    {
+      "User_ID": 11,
+      "Employee_ID": 111,
+      "Username": "ishita",
+      "Role": "Employee"
+    },
+    {
+      "User_ID": 12,
+      "Employee_ID": 112,
+      "Username": "aditya",
+      "Role": "Employee"
+    },
+    {
+      "User_ID": 13,
+      "Employee_ID": 113,
+      "Username": "meera",
+      "Role": "Admin"
+    }
+  ],
+  "es": [
+    {
+      "Employee_ID": 101,
+      "Shift_ID": 1,
+      "Assigned_Date": "2026-09-01T00:00:00.000Z"
+    },
+    {
+      "Employee_ID": 103,
+      "Shift_ID": 1,
+      "Assigned_Date": "2026-09-01T00:00:00.000Z"
+    },
+    {
+      "Employee_ID": 102,
+      "Shift_ID": 2,
+      "Assigned_Date": "2026-09-01T00:00:00.000Z"
+    },
+    {
+      "Employee_ID": 104,
+      "Shift_ID": 4,
+      "Assigned_Date": "2026-09-01T00:00:00.000Z"
+    },
+    {
+      "Employee_ID": 105,
+      "Shift_ID": 5,
+      "Assigned_Date": "2026-09-01T00:00:00.000Z"
+    },
+    {
+      "Employee_ID": 106,
+      "Shift_ID": 6,
+      "Assigned_Date": "2026-09-01T00:00:00.000Z"
+    },
+    {
+      "Employee_ID": 107,
+      "Shift_ID": 7,
+      "Assigned_Date": "2026-09-01T00:00:00.000Z"
+    },
+    {
+      "Employee_ID": 108,
+      "Shift_ID": 8,
+      "Assigned_Date": "2026-09-01T00:00:00.000Z"
+    },
+    {
+      "Employee_ID": 109,
+      "Shift_ID": 9,
+      "Assigned_Date": "2026-09-01T00:00:00.000Z"
+    },
+    {
+      "Employee_ID": 110,
+      "Shift_ID": 10,
+      "Assigned_Date": "2026-09-02T00:00:00.000Z"
+    },
+    {
+      "Employee_ID": 111,
+      "Shift_ID": 11,
+      "Assigned_Date": "2026-09-02T00:00:00.000Z"
+    },
+    {
+      "Employee_ID": 112,
+      "Shift_ID": 12,
+      "Assigned_Date": "2026-09-02T00:00:00.000Z"
+    },
+    {
+      "Employee_ID": 113,
+      "Shift_ID": 13,
+      "Assigned_Date": "2026-09-02T00:00:00.000Z"
+    },
+    {
+      "Employee_ID": 114,
+      "Shift_ID": 14,
+      "Assigned_Date": "2026-09-02T00:00:00.000Z"
+    }
+  ]
+}
