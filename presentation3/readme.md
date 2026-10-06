@@ -12,7 +12,7 @@ This directory contains the final deliverables, source code, and deployment arti
 
 ### Directory Structure
 ```
-Presentation 3/
+presentation3/
 ├── readme.md               # Review 3 Executive Documentation
 └── source code/            # Full-Stack Application Codebase
     ├── prisma/             # Database Schema & Seed Automation
@@ -97,7 +97,7 @@ Presentation 3/
 ### Running the Application
 Navigate to the source code folder:
 ```bash
-cd "Presentation 3/source code"
+cd "presentation3/source code"
 ```
 
 1. **Configure Environment**:

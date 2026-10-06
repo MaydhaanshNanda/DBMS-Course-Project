@@ -35,7 +35,7 @@ The repository is structured to mirror the iterative milestones of the academic 
 ├── presentation2/                     # Review 2: Conceptual & Logical Design
 │   ├── README.md                      # Detailed ER & Normalization Documentation
 │   └── ER.png                         # High-Resolution Entity-Relationship Diagram
-└── Presentation 3/                    # Review 3: Implementation & Demonstration
+└── presentation3/                     # Review 3: Implementation & Demonstration
     ├── readme.md                      # Detailed Review 3 Documentation
     └── source code/                   # Full-Stack Application Codebase
         ├── prisma/                    # Prisma ORM Schema & Automated Seeders
@@ -49,7 +49,7 @@ The repository is structured to mirror the iterative milestones of the academic 
 | :--- | :--- | :--- |
 | **Review 1** | [presentation1/](file:///Users/maydhaanshnanda/Projects/DBMS/presentation1) | Problem definition, organizational bottlenecks, stakeholder analysis, and system scope definition. |
 | **Review 2** | [presentation2/](file:///Users/maydhaanshnanda/Projects/DBMS/presentation2) | Entity-Relationship (ER) model, cardinality ratios, Relational Schema design, and Normalization analysis (1NF to 3NF). |
-| **Review 3** | [Presentation 3/](file:///Users/maydhaanshnanda/Projects/DBMS/Presentation%203) | Live Next.js web application, Prisma ORM integration, MySQL database schema, seed scripts, and RESTful API endpoints. |
+| **Review 3** | [presentation3/](file:///Users/maydhaanshnanda/Projects/DBMS/presentation3) | Live Next.js web application, Prisma ORM integration, MySQL database schema, seed scripts, and RESTful API endpoints. |
 
 ---
 
@@ -143,7 +143,7 @@ erDiagram
 ### 2. Clone and Enter Source Code
 ```bash
 git clone https://github.com/MaydhaanshNanda/DBMS-Course-Project.git
-cd "DBMS-Course-Project/Presentation 3/source code"
+cd "DBMS-Course-Project/presentation3/source code"
 ```
 
 ### 3. Install Dependencies
