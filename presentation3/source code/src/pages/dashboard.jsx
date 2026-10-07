@@ -28,7 +28,7 @@ export const Dashboard = () => {
         <div
           style={{
             padding: '1rem 1.25rem',
-            backgroundColor: '#ffffff',
+            backgroundColor: 'var(--bg-card)',
             borderRadius: '12px',
             border: '1px solid var(--border-color)',
             display: 'flex',
@@ -104,7 +104,7 @@ export const Dashboard = () => {
             value={kpiStats.activeShifts}
             subtext="Configured in SHIFT table"
             icon={Clock}
-            color="purple"
+            color="orange"
           />
         </div>
 

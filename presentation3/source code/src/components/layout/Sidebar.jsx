@@ -10,15 +10,12 @@ import {
   CalendarRange,
   FileText,
   ShieldCheck,
-  RotateCcw,
   Database,
   Building2,
   X
 } from 'lucide-react';
-import { useEMS } from '../../context/EMSContext';
 
 export const Sidebar = ({ isMobileOpen, onCloseMobile }) => {
-  const { resetToMockDefaults } = useEMS();
   const pathname = usePathname();
 
   const navItems = [
@@ -50,7 +47,7 @@ export const Sidebar = ({ isMobileOpen, onCloseMobile }) => {
         <div
           style={{
             padding: '1.25rem 1.5rem',
-            borderBottom: '1px solid #1e293b',
+            borderBottom: '1px solid var(--sidebar-border)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between'
@@ -59,21 +56,21 @@ export const Sidebar = ({ isMobileOpen, onCloseMobile }) => {
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
             <div
               style={{
-                width: '36px',
-                height: '36px',
-                borderRadius: '8px',
-                backgroundColor: 'var(--primary)',
+                width: '38px',
+                height: '38px',
+                borderRadius: '10px',
+                background: 'linear-gradient(135deg, var(--primary) 0%, var(--primary-hover) 100%)',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
                 color: '#ffffff',
-                boxShadow: '0 2px 4px rgba(37,99,235,0.3)'
+                boxShadow: '0 4px 12px var(--primary-glow)'
               }}
             >
               <Building2 size={20} />
             </div>
             <div>
-              <h1 style={{ fontSize: '1.05rem', fontWeight: '700', letterSpacing: '-0.01em', color: '#ffffff' }}>
+              <h1 style={{ fontSize: '1.05rem', fontWeight: '700', letterSpacing: '-0.02em', color: '#ffffff' }}>
                 EMS Portal
               </h1>
               <p style={{ fontSize: '0.725rem', color: '#94a3b8' }}>DBMS Course Project</p>
@@ -91,13 +88,13 @@ export const Sidebar = ({ isMobileOpen, onCloseMobile }) => {
         </div>
 
         {/* Database Status Tag */}
-        <div style={{ padding: '0.85rem 1.5rem 0.5rem 1.5rem' }}>
+        <div style={{ padding: '0.85rem 1.25rem 0.5rem 1.25rem' }}>
           <div
             style={{
-              padding: '0.4rem 0.75rem',
-              borderRadius: '6px',
-              backgroundColor: 'rgba(30, 41, 59, 0.8)',
-              border: '1px solid #334155',
+              padding: '0.45rem 0.75rem',
+              borderRadius: '8px',
+              backgroundColor: 'rgba(255, 255, 255, 0.04)',
+              border: '1px solid var(--sidebar-border)',
               display: 'flex',
               alignItems: 'center',
               gap: '0.5rem',
@@ -105,14 +102,15 @@ export const Sidebar = ({ isMobileOpen, onCloseMobile }) => {
               color: '#cbd5e1'
             }}
           >
-            <Database size={14} style={{ color: '#38bdf8' }} />
-            <span style={{ fontWeight: '500' }}>Local Mock DB</span>
+            <Database size={14} style={{ color: '#60a5fa' }} />
+            <span style={{ fontWeight: '500' }}>Local MySQL / Prisma</span>
             <span
               style={{
                 width: '6px',
                 height: '6px',
                 borderRadius: '50%',
-                backgroundColor: '#10b981',
+                backgroundColor: 'var(--success-dot)',
+                boxShadow: '0 0 6px rgba(16, 185, 129, 0.7)',
                 marginLeft: 'auto'
               }}
             />
@@ -126,7 +124,7 @@ export const Sidebar = ({ isMobileOpen, onCloseMobile }) => {
               fontSize: '0.7rem',
               fontWeight: '600',
               textTransform: 'uppercase',
-              letterSpacing: '0.05em',
+              letterSpacing: '0.06em',
               color: '#64748b',
               padding: '0.5rem 0.75rem'
             }}
@@ -153,6 +151,7 @@ export const Sidebar = ({ isMobileOpen, onCloseMobile }) => {
                       fontWeight: isActive ? '600' : '400',
                       color: isActive ? '#ffffff' : '#94a3b8',
                       backgroundColor: isActive ? 'var(--primary)' : 'transparent',
+                      boxShadow: isActive ? '0 2px 8px var(--primary-glow)' : 'none',
                       transition: 'all 150ms ease-in-out'
                     }}
                   >
@@ -168,39 +167,10 @@ export const Sidebar = ({ isMobileOpen, onCloseMobile }) => {
         {/* Bottom Section */}
         <div
           style={{
-            padding: '1rem 1.25rem',
-            borderTop: '1px solid #1e293b',
-            display: 'flex',
-            flexDirection: 'column',
-            gap: '0.75rem'
+            padding: '1.25rem',
+            borderTop: '1px solid var(--sidebar-border)'
           }}
         >
-          {/* Demo Data Reset Button */}
-          <button
-            onClick={resetToMockDefaults}
-            title="Reset Mock State to Defaults"
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              gap: '0.5rem',
-              padding: '0.5rem',
-              borderRadius: '6px',
-              backgroundColor: '#1e293b',
-              color: '#cbd5e1',
-              fontSize: '0.75rem',
-              fontWeight: '500',
-              border: '1px solid #334155',
-              cursor: 'pointer',
-              transition: 'background-color 150ms'
-            }}
-            onMouseOver={(e) => (e.currentTarget.style.backgroundColor = '#334155')}
-            onMouseOut={(e) => (e.currentTarget.style.backgroundColor = '#1e293b')}
-          >
-            <RotateCcw size={13} />
-            <span>Reset Demo Mock Data</span>
-          </button>
-
           {/* User Profile Badge */}
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
             <div
@@ -208,13 +178,14 @@ export const Sidebar = ({ isMobileOpen, onCloseMobile }) => {
                 width: '34px',
                 height: '34px',
                 borderRadius: '50%',
-                backgroundColor: '#3b82f6',
+                background: 'linear-gradient(135deg, var(--primary) 0%, var(--primary-hover) 100%)',
                 color: '#ffffff',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
                 fontWeight: '600',
-                fontSize: '0.85rem'
+                fontSize: '0.85rem',
+                boxShadow: '0 2px 6px var(--primary-glow)'
               }}
             >
               AD

@@ -3,10 +3,11 @@ import React from 'react';
 export const StatCard = ({ title, value, subtext, icon: Icon, color = 'blue', trend }) => {
   const colorMap = {
     blue: { bg: '#eff6ff', color: '#2563eb', border: '#bfdbfe' },
-    green: { bg: '#f0fdf4', color: '#16a34a', border: '#bbf7d0' },
+    green: { bg: '#ecfdf5', color: '#059669', border: '#a7f3d0' },
     amber: { bg: '#fffbeb', color: '#d97706', border: '#fde68a' },
-    purple: { bg: '#faf5ff', color: '#9333ea', border: '#e9d5ff' },
-    rose: { bg: '#fff1f2', color: '#e11d48', border: '#fecdd3' }
+    orange: { bg: 'rgba(249, 115, 22, 0.14)', color: '#f97316', border: 'rgba(249, 115, 22, 0.3)' },
+    purple: { bg: 'rgba(249, 115, 22, 0.14)', color: '#f97316', border: 'rgba(249, 115, 22, 0.3)' },
+    rose: { bg: '#fef2f2', color: '#dc2626', border: '#fecaca' }
   };
 
   const theme = colorMap[color] || colorMap.blue;

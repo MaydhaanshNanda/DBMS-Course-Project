@@ -24,7 +24,7 @@ export const Admin = () => {
         <div
           style={{
             padding: '0.85rem 1.25rem',
-            backgroundColor: '#ffffff',
+            backgroundColor: 'var(--bg-card)',
             borderRadius: '10px',
             border: '1px solid var(--border-color)',
             display: 'flex',
