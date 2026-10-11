@@ -12,7 +12,11 @@
 
 ## Deliverables in this Directory
 
-1. **`Project_Report.md`**:
+1. **`Project_Report.pdf`**:
+   - The finalized, comprehensive 20-page DBMS Course Project Report in PDF format.
+   - Includes official Woxsen University title page, abstract, problem statement, requirements, ER diagram, normalization proofs (1NF to BCNF), data dictionary tables, DDL/DML scripts, Presentation-II analytical queries with efficiency calculation, live UI screenshots (Figures 1–7), test cases, and references with working GitHub repository link.
+
+2. **`Project_Report.md`**:
    - The complete, comprehensive 16-section DBMS Course Project Report in Markdown format.
-   - Includes student and course metadata, abstract, problem statement, scope, requirements, ER diagram, normalization proofs (1NF to BCNF), data dictionary tables, DDL/DML commands, Presentation-II analytical queries with 3-step efficiency calculations, live application UI screenshots, test cases, and references.
+   - Formatted for direct viewing and preview within GitHub and markdown viewers.
 
